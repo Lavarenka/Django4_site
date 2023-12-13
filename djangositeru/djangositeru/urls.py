@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
+from blog.views import page_not_found
 
 """
+https://proproprogs.ru/django4/django4-dinamicheskie-url-polzovatelskie-konvertery
 Прописываем все маршруты ПРИЛОЖЕНИЙ на сайте, представление описано и импартировано в views
 + импортируем include из django.urls
 """
@@ -28,3 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')), # подключаем маршруты приложения blog которые описаны в blog\urls.py
 ]
+
+
+# обработчик 404
+handler404 = page_not_found
