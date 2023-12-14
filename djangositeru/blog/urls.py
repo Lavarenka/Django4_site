@@ -11,9 +11,14 @@ register_converter(converters.FourDigitYearConverter, "year4") # регистр�
 urlpatterns = [
     path('', views.index, name='home'), # подключаем наш урл + импортируем,
     path('about/', views.about, name='about'), # подключаем наш урл + импортируем,
-    path('cat/<int:cat_id>/', views.categories, name='cat_id'),
+    path('addpage/', views.addpage, name='add_page'), # добавление статьи,
+    path('contact/', views.contact, name='contact'), # контакты,
+    path('login/', views.login, name='login'), # логин,
+    path('post/<int:post_id>/', views.show_post, name='post'),
+
+    # path('cat/<int:cat_id>/', views.categories, name='cat_id'),
     # path('cat/', views.categories),  без пагинации
-    path('cat/<slug:cat_slug>/', views.categories_by_slug, name='cat'),
-    path("archive/<year4:year>/", views.archive, name='archive'),
+    # path('cat/<slug:cat_slug>/', views.categories_by_slug, name='cat'),
+    # path("archive/<year4:year>/", views.archive, name='archive'),
     # с помощью регулярных выражений
 ]
