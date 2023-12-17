@@ -28,13 +28,17 @@
                 <!--  подключаем контент-->
                 {% endblock content %}
                 <div class="col black_border margin_10px">
-                    <ul class="list-group">
-                        <li class="list-group-item">Все категории</li>
-                        {% get_categories as categories%} <!--присваеваем переменную для тега -->
+                    <ul class="list-group navbar-nav">
+                        {% if cat_selected == 0 or cat_selected is None %}
+                        <li class="list-group-item category_selected">Все категории</li>
+                        {% else %}
+                        <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все категории</a></li>
+                        {% endif %}
 
-                        {% for i in categories %}
-                        <li class="list-group-item">{{ i.name }}</li>
-                        {% endfor %}
+
+
+                        {% show_categories cat_selected %}
+                        <!-- cat_selected для вывода активной категории -->
                     </ul>
                 </div>
             </div>

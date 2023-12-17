@@ -1,0 +1,7 @@
+{% for cat in cats %}
+{% if cat.id == cat_selected %}
+<li class="list-group-item category_selected ">{{ cat.name }}</li>
+{% else %}
+<li class="list-group-item nav-item"><a class="nav-link" href="{% url 'category' cat.id %}">{{ cat.name }}</a></li>
+{% endif %}
+{% endfor %}

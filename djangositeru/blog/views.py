@@ -48,6 +48,7 @@ def index(request):
         'title': 'Главная страница',
         'menu': menu,
         'posts': data_db,
+        'cat_selected': 0, # для вывода активной категории, прописана в block_tags
     }
     return render(request, 'blog/index.html', context=data)
 
@@ -63,6 +64,19 @@ def about(request):
 
 def show_post(request, post_id):
     return HttpResponse(f"Отображение статьи с id = {post_id}")
+
+
+def show_category(request, cat_id):
+    """
+    для вывода активной категории, все как в index
+    """
+    data = {
+        'title': 'Главная страница',
+        'menu': menu,
+        'posts': data_db,
+        'cat_selected': cat_id,
+    }
+    return render(request, 'blog/index.html', context=data)
 
 
 # def categories(request, cat_id):
