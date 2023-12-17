@@ -1,6 +1,6 @@
 from django.db import models
 """
-модели для баз данных
+модели для баз данных/
 """
 # Create your models here.
 
