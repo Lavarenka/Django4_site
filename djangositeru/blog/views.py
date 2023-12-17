@@ -11,9 +11,29 @@ menu = [
 ]
 
 data_db = [
-    {'id': 1, 'title': 'Анжелина джоли', 'content': 'Биография Анжелины Джоли', 'is_published': True},
-    {'id': 2, 'title': 'Марго Робби', 'content': 'Марго Робби', 'is_published': False},
-    {'id': 3, 'title': 'Джулия Робертс', 'content': 'Джулия Робертс', 'is_published': True},
+    {'id': 1, 'title': 'Анжелина джоли',
+     'content': '''<h1>Lorem Ipsum</h1> is simply dummy text of the printing and typesetting industry. 
+     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
+     printer took a galley of type and scrambled it to make a type specimen book. It has survived 
+     not only five centuries, but also the leap into electronic typesetting, remaining essentially 
+     unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+     and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.''',
+     'is_published': True},
+    {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_published': False},
+    {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Анжелины ДжолиБиография Джулия Робертс',
+     'is_published': True},
+    {'id': 4, 'title': 'Джулия Робертс2', 'content': 'Биография Анжелины ДжолиБиография Джулия Робертс2',
+     'is_published': True},
+    {'id': 5, 'title': 'Джулия Робертс3', 'content': 'Биография Анжелины ДжолиБиография Джулия Робертс3',
+     'is_published': True},
+    {'id': 6, 'title': 'Джулия Робертс4', 'content': 'Биография Анжелины ДжолиБиография Джулия Робертс4',
+     'is_published': True},
+]
+
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'},
 ]
 
 
