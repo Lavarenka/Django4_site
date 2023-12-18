@@ -66,6 +66,10 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
+    """создаем коменты и подключаем к посту
+        нужно еще добавить дату
+    """
+
     name = models.CharField(max_length=100)
     content = models.TextField()
     com = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comment')
