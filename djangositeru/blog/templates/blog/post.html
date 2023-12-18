@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{post.title}}</h1>
+{% if post.photo %}
+<p><img src="{{post.photo.url}}" alt=""></p>
+{% endif %}
+{% autoescape off %}
+{{post.content|linebreaks}}
+{% endautoescape %}
+
+
+<div class="card m-1" style="width: 18rem;">
+  <h2>Комменты</h2>
+{% for com in comment %}
+
+  <div class="card-body black_border m-1">
+    <h5 class="card-title">{{com.name}}</h5>
+
+    <p class="card-text">{{com.content}}</p>
+
+  </div>
+
+{% endfor %}
+</div>
+{% endblock %}

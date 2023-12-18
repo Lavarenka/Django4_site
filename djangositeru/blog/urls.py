@@ -14,8 +14,8 @@ urlpatterns = [
     path('addpage/', views.addpage, name='add_page'), # добавление статьи,
     path('contact/', views.contact, name='contact'), # контакты,
     path('login/', views.login, name='login'), # логин,
-    path('post/<int:post_id>/', views.show_post, name='post'),
-    path('category/<int:cat_id>/', views.show_category, name='category'),
+    path('post/<slug:post_slug>/', views.show_post, name='post'),
+    path('category/<slug:cat_slug>/', views.show_category, name='category'),
 
     # path('cat/<int:cat_id>/', views.categories, name='cat_id'),
     # path('cat/', views.categories),  без пагинации

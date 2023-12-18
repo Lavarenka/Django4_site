@@ -1,7 +1,9 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
+
+from .models import Blog, Category, Comment
 
 menu = [
     {"title": "О сайте", "url_name": "about"},
@@ -30,12 +32,6 @@ data_db = [
      'is_published': True},
 ]
 
-cats_db = [
-    {'id': 1, 'name': 'Актрисы'},
-    {'id': 2, 'name': 'Певицы'},
-    {'id': 3, 'name': 'Спортсменки'},
-]
-
 
 # в шаблоне обращатся через точку
 def index(request):
@@ -44,11 +40,12 @@ def index(request):
     подключаем шаблон
     data = title страницы
     """
+    posts = Blog.published.all()  # все опубл статьи , прописан класс в моделях
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': data_db,
-        'cat_selected': 0, # для вывода активной категории, прописана в block_tags
+        'posts': posts,
+        'cat_selected': 0,  # для вывода активной категории, прописана в block_tags
     }
     return render(request, 'blog/index.html', context=data)
 
@@ -62,19 +59,30 @@ def about(request):
     return render(request, 'blog/about.html', data)
 
 
-def show_post(request, post_id):
-    return HttpResponse(f"Отображение статьи с id = {post_id}")
+def show_post(request, post_slug):
+    post = get_object_or_404(Blog, slug=post_slug)  # берем из бз пост
+    comment = Comment.objects.filter(com_id=post.pk)
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        'comment': comment,
+        'cat_selected': 1,  # для вывода активной категории, прописана в block_tags
+    }
+    return render(request, 'blog/post.html', data)
 
 
-def show_category(request, cat_id):
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Blog.published.filter(cat_id=category.pk)
     """
     для вывода активной категории, все как в index
     """
     data = {
-        'title': 'Главная страница',
+        'title': f'{category.name}',
         'menu': menu,
-        'posts': data_db,
-        'cat_selected': cat_id,
+        'posts': posts,
+        'cat_selected': category.pk,
     }
     return render(request, 'blog/index.html', context=data)
 

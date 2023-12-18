@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-            <div class="col-9 black_border margin_10px row">
+{% for i in posts %}
 
-                {% for i in posts %}
-                {% if i.is_published %}
-                <div class="card col-lg-4 col-sm-6 m-1 item-card">
-                    <div class="product-img">
-                        <img src="..." class="card-img-top" alt="...">
-                    </div>
+<div class="card col-lg-4 col-sm-6 m-1 item-card">
+    <div class="product-img">
+        <img src="..." class="card-img-top" alt="...">
+    </div>
 
-                    <div class="card-body">
-                        <h5 class="card-title">{{ i.title }}</h5>
-                        {% autoescape off %}
-                        <!--
-                        autoescape разрешает применять разметку html
-                        linebreaks перенос строки
-                        -->
-                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
-                        {% endautoescape %}
-                        <a href="{% url 'post' i.id %}" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
+    <div class="card-body">
+        <h5 class="card-title">{{ i.title }}</h5>
+        {% autoescape off %}
+        <!--
+        autoescape разрешает применять разметку html
+        linebreaks перенос строки
+        -->
+        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+        {% endautoescape %}
+        <p class="card-text">Категория: {{ i.cat.name }}</p>
+        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
 
-            </div>
+{% endfor %}
 
 
 {% endblock %}

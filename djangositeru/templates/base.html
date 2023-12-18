@@ -1,5 +1,5 @@
 {% load static %}
-{% load blog_tags %}}
+{% load blog_tags %}
 
 <!doctype html>
 <html lang="ru">
@@ -24,17 +24,19 @@
     <section class="main-content">
         <div class="container-fluid ">
             <div class="row">
-                {% block content %}
-                <!--  подключаем контент-->
-                {% endblock content %}
+                <div class="col-9 black_border margin_10px row">
+                    {% block content %}
+                    <!--  подключаем контент-->
+                    {% endblock content %}
+                </div>
                 <div class="col black_border margin_10px">
                     <ul class="list-group navbar-nav">
                         {% if cat_selected == 0 or cat_selected is None %}
                         <li class="list-group-item category_selected">Все категории</li>
                         {% else %}
-                        <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все категории</a></li>
+                        <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все
+                            категории</a></li>
                         {% endif %}
-
 
 
                         {% show_categories cat_selected %}
