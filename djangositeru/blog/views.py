@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
 
-from .models import Blog, Category, Comment
+from .models import Blog, Category, Comment, TagPost
 
 menu = [
     {"title": "О сайте", "url_name": "about"},
@@ -41,7 +41,7 @@ def about(request):
 
 def show_post(request, post_slug):
     post = get_object_or_404(Blog, slug=post_slug)  # берем из бз пост
-    comment = Comment.objects.filter(com_id=post.pk) # к посту подрубаем коьменты
+    comment = Comment.objects.filter(com_id=post.pk)  # к посту подрубаем коьменты
     data = {
         'title': post.title,
         'menu': menu,
@@ -54,7 +54,7 @@ def show_post(request, post_slug):
 
 def show_category(request, cat_slug):
     category = get_object_or_404(Category, slug=cat_slug)
-    posts = Blog.published.filter(cat_id=category.pk) # к категории добавляем пост
+    posts = Blog.published.filter(cat_id=category.pk)  # к категории добавляем пост
     """
     для вывода активной категории, все как в index
     """
@@ -67,7 +67,20 @@ def show_category(request, cat_slug):
     return render(request, 'blog/index.html', context=data)
 
 
-
+def show_tag_postlist(request, tag_slug):
+    """
+    отображение по тегам
+    posts / выводит по тегу опубликованные посты
+    """
+    tag = get_object_or_404(TagPost, slug=tag_slug)
+    posts = tag.tags.filter(is_published=Blog.Status.PUBLICHED)
+    data = {
+        "title": f"Тег: {tag.tag}",
+        "menu": menu,
+        "posts": posts,
+        "cat_selected": None,
+    }
+    return render(request, 'blog/index.html', context=data)
 
 
 def addpage(request):

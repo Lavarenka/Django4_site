@@ -33,8 +33,9 @@ class Blog(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(choices=Status.choices, default=Status.PUBLICHED)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts') # связываем категории, PROTECT запрещает удаление если есть посты
+    tags = models.ManyToManyField('TagPost', blank=True, related_name='tags')
 
-    # object = models.Manager()
+    objects = models.Manager()
     published = PublishedManager() #вызываем класс со статьями
     def __str__(self):
         return self.title
@@ -76,3 +77,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class TagPost(models.Model):
+    """
+    тэги
+    """
+    tag = models.CharField(max_length=100,db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+
+    def __str__(self):
+        return self.tag
+
+    def get_absolute_url(self):
+        """вывод текущей записи по слагу """
+        return reverse('tag', kwargs={'tag_slug': self.slug})

@@ -16,6 +16,7 @@ urlpatterns = [
     path('login/', views.login, name='login'), # логин,
     path('post/<slug:post_slug>/', views.show_post, name='post'),
     path('category/<slug:cat_slug>/', views.show_category, name='category'),
+    path('tag/<slug:tag_slug>/', views.show_tag_postlist, name='tag'),
 
     # path('cat/<int:cat_id>/', views.categories, name='cat_id'),
     # path('cat/', views.categories),  без пагинации

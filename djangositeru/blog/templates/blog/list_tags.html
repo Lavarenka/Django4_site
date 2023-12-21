@@ -1,0 +1,9 @@
+<!--проверяет есть ли теги у поста-->
+{% if tags %}
+<p>Тэги:</p>
+<ul class="tags-list">
+    {% for t in tags %}
+    <li class="badge text-bg-danger"><a href="{{t.get_absolute_url}}">{{t.tag}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
