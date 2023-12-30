@@ -19,8 +19,9 @@ def index(request):
     функция предстовления
     подключаем шаблон
     data = title страницы
+    .select_related('cat') = убирает дублирование запросов
     """
-    posts = Blog.published.all()  # все опубл статьи , прописан класс в моделях
+    posts = Blog.published.all().select_related('cat')  # все опубл статьи , прописан класс в моделях
     data = {
         'title': 'Главная страница',
         'menu': menu,
@@ -54,7 +55,7 @@ def show_post(request, post_slug):
 
 def show_category(request, cat_slug):
     category = get_object_or_404(Category, slug=cat_slug)
-    posts = Blog.published.filter(cat_id=category.pk)  # к категории добавляем пост
+    posts = Blog.published.filter(cat_id=category.pk).select_related('cat')  # к категории добавляем пост
     """
     для вывода активной категории, все как в index
     """
@@ -73,7 +74,7 @@ def show_tag_postlist(request, tag_slug):
     posts / выводит по тегу опубликованные посты
     """
     tag = get_object_or_404(TagPost, slug=tag_slug)
-    posts = tag.tags.filter(is_published=Blog.Status.PUBLICHED)
+    posts = tag.tags.filter(is_published=Blog.Status.PUBLICHED).select_related('cat')
     data = {
         "title": f"Тег: {tag.tag}",
         "menu": menu,

@@ -1,4 +1,6 @@
 from django import template
+from django.db.models import Count
+
 import blog.views as views
 from blog.models import Category, TagPost
 
@@ -13,10 +15,12 @@ register = template.Library()
 
 @register.inclusion_tag('blog/list_categories.html')
 def show_categories(cat_selected=0):  # cat_selected=0 для категорий , выводит активную категорию
-    cats = Category.objects.all()
+
+    cats = Category.objects.annotate(total=Count('posts')).filter(total__gt=0)
+    # фильтр, выводит те категории к которых есть посты
     return {'cats': cats, 'cat_selected': cat_selected}
 
 @register.inclusion_tag('blog/list_tags.html')
 def show_all_tags():
-
-    return {'tags': TagPost.objects.all()}
+    # фильтр, выводит те теги к которых есть посты
+    return {'tags': TagPost.objects.annotate(total=Count('tags')).filter(total__gt=0)}

@@ -27,9 +27,12 @@ https://proproprogs.ru/django4/django4-dinamicheskie-url-polzovatelskie-konverte
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls')), # подключаем маршруты приложения blog которые описаны в blog\urls.py
+    path('', include('blog.urls')),  # подключаем маршруты приложения blog которые описаны в blog\urls.py
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
-
 
 # обработчик 404
 handler404 = page_not_found
+
+admin.site.site_header = "Админка" # хедер админки
+admin.site.index_title = "Blog Артема" # хедер приложения в админке
