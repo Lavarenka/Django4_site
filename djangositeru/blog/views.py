@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
 
+from .forms import AddPostForm
 from .models import Blog, Category, Comment, TagPost
 
 menu = [
@@ -85,7 +86,21 @@ def show_tag_postlist(request, tag_slug):
 
 
 def addpage(request):
-    return HttpResponse('Добавление статьи')
+    """Проерка на форму какой пришел запрос"""
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostForm()
+
+
+    data = {
+        "title": f"Добавление статьи",
+        "menu": menu,
+        "form": form
+    }
+    return render(request, 'blog/addpage.html', context=data)
 
 
 def contact(request):
