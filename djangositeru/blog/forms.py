@@ -11,7 +11,7 @@ class AddPostForm(forms.Form):
     widget // присваиваем класс css
     """
     title = forms.CharField(max_length=255, label='Заголовок', widget=forms.TextInput(attrs={'class':'form-input'}))
-    # slug = forms.SlugField(max_length=255)
+    slug = forms.SlugField(max_length=255)
     content = forms.CharField(widget=forms.Textarea(), required=False, label='Текст')
     is_published = forms.BooleanField(initial=True, label='Публикация' )
     cat = forms.ModelChoiceField(queryset=Category.objects.all(),empty_label='Категория не выбрана' ,label='Категория')
