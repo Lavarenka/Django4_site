@@ -1,10 +1,12 @@
+import os
+
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
 
-from .forms import AddPostForm
-from .models import Blog, Category, Comment, TagPost
+from .forms import AddPostForm, UploadFileForm
+from .models import Blog, Category, Comment, TagPost, UploadFiles
 
 menu = [
     {"title": "О сайте", "url_name": "about"},
@@ -32,12 +34,39 @@ def index(request):
     return render(request, 'blog/index.html', context=data)
 
 
+# def handle_uploaded_file(f):
+#     """функция на загрузку файла , вызывается в about"""
+#     n = 1
+#     res = f.name
+#     while os.path.exists(f"uploads/{res}"):
+#         res = str(n) + f.name
+#         n += 1
+#     with open(f"uploads/{res}", "wb+") as destination:
+#         print(res)
+#         for chunk in f.chunks():
+#             destination.write(chunk)
+
+
 def about(request):
     """
     подключаем шаблон 'О себе'
     data = title страницы
+    UploadFileForm прописан в формах
+    UploadFiles прописан в моделях
     """
-    data = {'title': 'О сайте', 'menu': menu}
+    if request.method == 'POST':
+        # handle_uploaded_file(request.FILES['file_upload'])
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # handle_uploaded_file(form.cleaned_data['file'])
+            fp = UploadFiles(file=form.cleaned_data['file'])
+            fp.save()
+    else:
+        form = UploadFileForm()
+    data = {'title': 'О сайте',
+            'menu': menu,
+            'form': form,
+            }
     return render(request, 'blog/about.html', data)
 
 
@@ -96,7 +125,6 @@ def addpage(request):
 
     else:
         form = AddPostForm()
-
 
     data = {
         "title": f"Добавление статьи",

@@ -43,7 +43,7 @@ class AddPostForm(forms.ModelForm):
         fields // перечисляем поля + их порядок
         """
         model = Blog
-        fields = ['title','content', 'is_published', 'cat', 'tags' , 'slug']
+        fields = ['title', 'content', 'is_published', 'cat', 'tags', 'slug']
         widgets = {
             # подключаем виджеты , стили
             'titile': forms.TextInput(attrs={'class': 'form-input'}),
@@ -59,3 +59,8 @@ class AddPostForm(forms.ModelForm):
         if len(title) > 50:
             raise ValidationError('Длинна болше писятки')
         return title
+
+
+class UploadFileForm(forms.Form):
+    """для загрузки файлов, описан в about"""
+    file = forms.ImageField(label='Файл')
