@@ -5,7 +5,7 @@ from .models import Category, TagPost
 class AddPostForm(forms.Form):
     """
     Добавление статьи
-    .///789
+    .///789 16.224
     required=False // не обязательное поле
     empty_label // штатное название в выборе категории
     initial=True // чекбокс тру
