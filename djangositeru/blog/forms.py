@@ -15,4 +15,4 @@ class AddPostForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(), required=False, label='Текст')
     is_published = forms.BooleanField(initial=True, label='Публикация' )
     cat = forms.ModelChoiceField(queryset=Category.objects.all(),empty_label='Категория не выбрана' ,label='Категория')
-    tags = forms.ModelMultipleChoiceField(queryset=TagPost.objects.all(), required=False, label='Тэг')
+    # tags = forms.ModelMultipleChoiceField(queryset=TagPost.objects.all(), required=False, label='Тэг')
