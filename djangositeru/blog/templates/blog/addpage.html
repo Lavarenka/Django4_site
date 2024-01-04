@@ -2,7 +2,8 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
+    <!--enctype="multipart/form-data" ОБЯЗАТЕЛЬНЫЙ ПАРАМЕТР ДЛЯ ЗАГРУЗКИ ФАЙЛОВ-->
     {% csrf_token %}
     <!-- csrf_token защита от злоумышленников, обязательно
          выводим циклом формы

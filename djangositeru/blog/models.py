@@ -1,6 +1,7 @@
 from django.db import models
-from django.template.defaultfilters import slugify
+
 from django.urls import reverse
+from slugify import slugify
 
 """
 модели для баз данных/
@@ -32,7 +33,8 @@ class Blog(models.Model):
         PUBLICHED = 1, 'Опубликовано'
 
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг')  # чпу , для урл
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Слаг',
+                            blank=True,)  # чпу , для урл
     content = models.TextField(blank=True, verbose_name='Текст статьи')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', default=None, blank=True, null=True, verbose_name='Фото')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
@@ -48,6 +50,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = slugify(self.title)
+
+        return super(Blog, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Статьи'  # название блога в админке
@@ -66,6 +74,7 @@ class Blog(models.Model):
     #     """функия на автоматическое создание слага"""
     #     self.slug = slugify(translit_to_eng(self.title))
     #     super().save(*args, **kwargs)
+
 
 class Category(models.Model):
     """
@@ -120,6 +129,7 @@ class TagPost(models.Model):
     def get_absolute_url(self):
         """вывод текущей записи по слагу """
         return reverse('tag', kwargs={'tag_slug': self.slug})
+
 
 class UploadFiles(models.Model):
     """модель загрузки файлов

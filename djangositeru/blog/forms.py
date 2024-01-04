@@ -43,7 +43,7 @@ class AddPostForm(forms.ModelForm):
         fields // перечисляем поля + их порядок
         """
         model = Blog
-        fields = ['title', 'content', 'is_published', 'cat', 'tags', 'slug']
+        fields = ['title', 'content', 'photo', 'is_published', 'cat', 'tags']
         widgets = {
             # подключаем виджеты , стили
             'titile': forms.TextInput(attrs={'class': 'form-input'}),

@@ -5,7 +5,11 @@
 
 <div class="card col-lg-4 col-sm-6 m-1 item-card">
     <div class="product-img">
-        <img src="..." class="card-img-top" alt="...">
+        {% if i.photo %}
+        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+        {% endif %}
     </div>
 
     <div class="card-body">

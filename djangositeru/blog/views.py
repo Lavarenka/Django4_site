@@ -1,9 +1,12 @@
-import os
+
+
 
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
+from django.views import View
+from django.views.generic import ListView
 
 from .forms import AddPostForm, UploadFileForm
 from .models import Blog, Category, Comment, TagPost, UploadFiles
@@ -16,35 +19,19 @@ menu = [
 ]
 
 
-# в шаблоне обращатся через точку
-def index(request):
-    """
-    функция предстовления
-    подключаем шаблон
-    data = title страницы
-    .select_related('cat') = убирает дублирование запросов
-    """
-    posts = Blog.published.all().select_related('cat')  # все опубл статьи , прописан класс в моделях
-    data = {
+
+class BlogHome(ListView):
+    template_name = 'blog/index.html'
+    context_object_name = 'posts'
+    extra_context = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': posts,
-        'cat_selected': 0,  # для вывода активной категории, прописана в block_tags
+        'cat_selected': 0,
     }
-    return render(request, 'blog/index.html', context=data)
 
+    def get_queryset(self):
+        return Blog.published.all().select_related('cat')
 
-# def handle_uploaded_file(f):
-#     """функция на загрузку файла , вызывается в about"""
-#     n = 1
-#     res = f.name
-#     while os.path.exists(f"uploads/{res}"):
-#         res = str(n) + f.name
-#         n += 1
-#     with open(f"uploads/{res}", "wb+") as destination:
-#         print(res)
-#         for chunk in f.chunks():
-#             destination.write(chunk)
 
 
 def about(request):
@@ -97,7 +84,20 @@ def show_category(request, cat_slug):
     }
     return render(request, 'blog/index.html', context=data)
 
+class BlogCategory(ListView):
+    template_name = 'blog/index.html'
+    context_object_name = 'posts'
+    allow_empty = False
+    def get_queryset(self):
+        return Blog.published.filter(cat__slug=self.kwargs['cat_slug']).select_related('cat')  # к категории добавляем пост
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cat = context['posts'][0].cat
+        context['title'] = 'Категория - ' + cat.name
+        context['menu'] = menu
+        context['cat_selected'] = cat.pk
+        return context
 def show_tag_postlist(request, tag_slug):
     """
     отображение по тегам
@@ -114,24 +114,7 @@ def show_tag_postlist(request, tag_slug):
     return render(request, 'blog/index.html', context=data)
 
 
-def addpage(request):
-    """Проерка на форму какой пришел запрос"""
-    if request.method == 'POST':
-        form = AddPostForm(request.POST)
-        if form.is_valid():
-            # ловим форму и отправляем в бд после делаем редирект на главную
-            form.save()
-            return redirect('home')
 
-    else:
-        form = AddPostForm()
-
-    data = {
-        "title": f"Добавление статьи",
-        "menu": menu,
-        "form": form
-    }
-    return render(request, 'blog/addpage.html', context=data)
 
 
 def contact(request):
@@ -150,3 +133,26 @@ def page_not_found(request, exception):
     """
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
     # return redirect('/')
+
+
+class AddPage(View):
+    def get(self, request):
+        form = AddPostForm()
+        data = {
+            "title": f"Добавление статьи",
+            "menu": menu,
+            "form": form
+        }
+        return render(request, 'blog/addpage.html', context=data)
+
+    def post(self, request):
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        data = {
+            "title": f"Добавление статьи",
+            "menu": menu,
+            "form": form
+        }
+        return render(request, 'blog/addpage.html', context=data)
