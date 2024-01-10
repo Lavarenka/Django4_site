@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
-from .models import Category, TagPost, Blog
+from .models import Category, TagPost, Blog, Comment
 
 
 class AddPostForm(forms.ModelForm):
@@ -15,25 +15,6 @@ class AddPostForm(forms.ModelForm):
     error_messages // валидатор, описание ошибок, ключ такой же как и
     параметр НА СТОРОНЕ СЕРВЕРА
     """
-    # title = forms.CharField(max_length=255,
-    #                         min_length=5,
-    #                         label='Заголовок',
-    #                         widget=forms.TextInput(attrs={'class': 'form-input'}),
-    #                         error_messages={
-    #                             'min_length': 'Маловимволов',
-    #                             'max_length': 'Много символов',
-    #                             'required': 'без заголовка никак', #required если пустое поле
-    #                         }
-    #
-    #                         )
-    # slug = forms.SlugField(max_length=255, validators=[
-    #     MinLengthValidator(5, message='минимум 5'),
-    #     MaxLengthValidator(20, message='максимум 20')
-    # ])
-    # content = forms.CharField(widget=forms.Textarea(), required=False, label='Текст')
-    # is_published = forms.BooleanField(initial=True, label='Публикация')
-    # cat = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label='Категория не выбрана', label='Категория')
-    # tags = forms.ModelMultipleChoiceField(queryset=TagPost.objects.all(), required=False, label='Тэг')
 
     cat = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label='Категория не выбрана', label='Категория')
 
@@ -59,6 +40,11 @@ class AddPostForm(forms.ModelForm):
         if len(title) > 50:
             raise ValidationError('Длинна болше писятки')
         return title
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name', 'content']
 
 
 class UploadFileForm(forms.Form):

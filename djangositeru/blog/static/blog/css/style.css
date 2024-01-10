@@ -74,8 +74,29 @@ input, textarea, select {
     border: black solid 1px;
 }
 
+body {
+    /*background-image: url("../images/img1.akspic.ru-tablica-oblako-atmosfera-ekoregion-poslesvechenie-2250x4872.png");*/
+background: rgb(0,30,36);
+background: linear-gradient(99deg, rgba(0,30,36,1) 0%, rgba(9,121,92,0.9836309523809523) 45%, rgba(0,255,192,1) 100%);
+}
+
 .black_border {
     border: 1px solid black;
+}
+
+.min_h {
+    min-height: 250px;
+}
+
+.container_body_css {
+    display: flex;
+    flex-direction: column;
+}
+
+.cont_item_2_css {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
 }
 
 .margin_10px {
@@ -85,6 +106,14 @@ input, textarea, select {
 .item-card {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.6);
     transition: all .3s;
+}
+
+.container-card {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
+}
+
+.bc_color_white_css {
+    background-color: white;
 }
 
 .item-card:hover {

@@ -95,6 +95,7 @@ class Category(models.Model):
         return reverse('category', kwargs={'cat_slug': self.slug})
 
 
+
 class Comment(models.Model):
     """создаем коменты и подключаем к посту
         нужно еще добавить дату
@@ -106,6 +107,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        """вывод текущей записи по слагу """
+        return reverse('comment', kwargs={'comment_slug': self.name})
 
     class Meta:
         verbose_name = 'Комментарий'  # название Категории в админке
