@@ -3,9 +3,15 @@
 
 {% for i in posts %}
 
-<div class="card col-lg-4 col-sm-6 m-1 item-card">
+<!--<div class="card col-lg-4 col-sm-6 m-1 item-card">-->
+<div class="">
+    <div class="card d-flex flex-row m-2 item-card">
     <div class="product-img">
-        <img src="..." class="card-img-top" alt="...">
+        {% if i.photo %}
+        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+        {% endif %}
     </div>
 
     <div class="card-body">
@@ -22,6 +28,8 @@
         <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
     </div>
 </div>
+</div>
+
 
 {% endfor %}
 

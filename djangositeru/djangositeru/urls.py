@@ -14,10 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
 from blog.views import page_not_found
+from djangositeru import settings
 
 """
 https://proproprogs.ru/django4/django4-dinamicheskie-url-polzovatelskie-konvertery
@@ -30,6 +32,10 @@ urlpatterns = [
     path('', include('blog.urls')),  # подключаем маршруты приложения blog которые описаны в blog\urls.py
     path("__debug__/", include("debug_toolbar.urls")),
 ]
+
+if settings.DEBUG:
+    # для отображения файлов в режиме отдладки
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # обработчик 404
 handler404 = page_not_found

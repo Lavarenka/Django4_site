@@ -1,109 +1,162 @@
 @charset "UTF-8";
 /*Обнуление*/
 * {
-  padding: 0;
-  margin: 0;
-  border: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
 
 *, *:before, *:after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 :focus, :active {
-  outline: none;
+    outline: none;
 }
 
 a:focus, a:active {
-  outline: none;
+    outline: none;
 }
 
 nav, footer, header, aside {
-  display: block;
+    display: block;
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
-  font-size: 100%;
-  line-height: 1;
-  font-size: 14px;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 input, button, textarea {
-  font-family: inherit;
+    font-family: inherit;
 }
 
 input::-ms-clear {
-  display: none;
+    display: none;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
+    padding: 0;
+    border: 0;
 }
 
 a, a:visited {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 img {
-  vertical-align: top;
+    vertical-align: top;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: inherit;
-  font-weight: inherit;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 
 /* ---------------*/
-
-input, textarea, select{
+.wrapper {
+      max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: content-box;
+}
+input, textarea, select {
     border: black solid 1px;
 }
 
-.black_border{
+body {
+    /*background-image: url("../images/img1.akspic.ru-tablica-oblako-atmosfera-ekoregion-poslesvechenie-2250x4872.png");*/
+background: rgb(0,30,36);
+background: linear-gradient(99deg, rgba(0,30,36,1) 0%, rgba(9,121,92,0.9836309523809523) 45%, rgba(0,255,192,1) 100%);
+}
+
+.black_border {
     border: 1px solid black;
 }
-.margin_10px{
+
+.min_h {
+    min-height: 250px;
+}
+
+.container_body_css {
+    display: flex;
+    flex-direction: column;
+}
+
+.cont_item_2_css {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.margin_10px {
     margin: 10px;
 }
 
-.item-card{
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.6);
+.item-card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.6);
     transition: all .3s;
 }
 
-.item-card:hover{
-    box-shadow: 0 14px 30px -15px rgba(0,0,0,0.75);
+.container-card {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
 }
 
-.product-img a {
+.bc_color_white_css {
+    background-color: white;
+}
+
+.item-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+
+.product-img {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 200px;
     padding: 20px;
+    position: relative
 }
 
-.product-img img{
+.product-img img {
     max-width: 100%;
     max-height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
 }
 
-.category_selected{
+.category_selected {
     color: aqua;
 
+}
+
+.foto_post {
+    width: 300px;
+    height: 300px;
+    position: relative
+}
+
+.foto_post img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
 }

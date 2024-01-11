@@ -1,0 +1,241 @@
+<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="d-flex flex-row  justify-content-around">
+                <div class="card d-flex flex-row mb-3 mt-3 item-card ">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="d-flex flex-row  justify-content-around">
+                <div class="card d-flex flex-row mb-3 mt-3 item-card ">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="d-flex flex-row  justify-content-around">
+                <div class="card d-flex flex-row mb-3 mt-3 item-card ">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card d-flex flex-row mb-3 mt-3 item-card">
+                    <div class="product-img">
+                        {% if i.photo %}
+                        <img src="{{ i.photo.url }}" class="card-img-top" alt="...">
+                        {% else %}
+                        <img src="/media/photos/no_product.jpg" class="card-img-top" alt="...">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% autoescape off %}
+                        <!--
+                        autoescape разрешает применять разметку html
+                        linebreaks перенос строки
+                        -->
+                        <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>
+                        {% endautoescape %}
+                        <p class="card-text">Категория: {{ i.cat.name }}</p>
+                        <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
+                        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущий</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующий</span>
+    </button>
+</div>

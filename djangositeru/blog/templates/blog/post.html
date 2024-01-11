@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{post.title}}</h1>
 {% if post.photo %}
-<p><img src="{{post.photo.url}}" alt=""></p>
+<div class="foto_post"><img src="{{post.photo.url}}" alt=""></div>
 {% endif %}
 {% autoescape off %}
 {{post.content|linebreaks}}
@@ -18,9 +18,23 @@
 </ul>
 {% endif %}
 {% endwith %}
+<form action="" method="post" class="black_border ">
+    {% csrf_token %}
+
+    <!--  add comment-->
+    {% for f in form %}
+
+    <div class=" input-group mb-3">
+        <p><label for="{{ f.id_for_label }}" class="form-label input-group-text">{{ f.label }}</label>{{ f }}</p>
+
+    </div>
+    {% endfor %}
+    <p><button type="submit">Отправить</button></p>
+</form>
+
 <div class="card m-1" style="width: 18rem;">
     <h2>Комменты</h2>
-    {% for com in comment %}
+    {% for com in post.comment.all %}
 
     <div class="card-body black_border m-1">
         <h5 class="card-title">{{com.name}}</h5>

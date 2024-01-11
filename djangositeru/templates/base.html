@@ -16,38 +16,109 @@
     <link type="text/css" href="{% static 'blog/css/style.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<div class="container-fluid border border-dark">
-    <div class="row">
+<div class="container-fluid  px-4 wrapper ">
+    <div class="row rounded mt-2 mb-2 container-card overflow-hidden bg-success-subtle">
         <!-- подключаем меню-->
         {% include 'blog/includes/navbar.html' %}
     </div>
-    <section class="main-content">
-        <div class="container-fluid ">
-            <div class="row">
-                <div class="col-9 black_border margin_10px row">
+    <div class="row mb-2 rounded container-card overflow-hidden bc_color_white_css">
+        <!-- подключаем карусель-->
+        {% include 'blog/includes/carusel.html' %}
+    </div>
+    <section class="row main-content ">
+        <div class="container d-flex flex-nowrap justify-content-between ">
+
+            <div class="row col-9 d-flex  container_body_css">
+                <!-- хлебные крошки    -->
+                <div class=" container-card rounded bc_color_white_css mb-2 ">
+                    <div class="d-flex align-self-center ">
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class=" breadcrumb ">
+                                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Библиотека</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+                <!-- контент    -->
+                <div class=" container-card rounded bc_color_white_css mb-2  cont_item_2_css">
                     {% block content %}
                     <!--  подключаем контент-->
                     {% endblock content %}
                 </div>
-                <div class="col black_border margin_10px">
-                    <ul class="list-group navbar-nav">
-                        {% if cat_selected == 0  %}
-                        <li class="list-group-item category_selected">Все категории</li>
-                        {% else %}
-                        <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все
-                            категории</a></li>
-                        {% endif %}
+                <div class=" container-card rounded bc_color_white_css ">
+                    <nav aria-label="Пример навигации по страницам">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Предыдущая">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Следующая">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="row col-3 ">
+                <div class=" container-card rounded bc_color_white_css ">
+                    <div class="d-flex justify-content-center container-card m-2 p-2">
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">Мы никогда никому не передадим вашу электронную
+                                    почту.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Проверить меня</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="d-flex justify-content-center container-card m-2 p-2">
+                        <ul class="list-group navbar-nav">
+                            {% if cat_selected == 0 %}
+                            <li class="list-group-item category_selected">Все категории</li>
+                            {% else %}
+                            <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все
+                                категории</a></li>
+                            {% endif %}
 
 
-                        {% show_categories cat_selected %}
-                        {% show_all_tags %}
-                        <!-- cat_selected для вывода активной категории -->
-                    </ul>
+                            {% show_categories cat_selected %}
+                            {% show_all_tags %}
+                            <!-- cat_selected для вывода активной категории -->
+                        </ul>
+                    </div>
+                    <div class="d-flex justify-content-center container-card m-2 p-2">
+                        <div class="min_h">Пустой блок</div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
+
+
     </section>
+    <footer class="row bg-secondary rounded container-card overflow-hidden min_h mt-2 mb-2  ">
+        <h1 class="text-center">FOOTER</h1>
+    </footer>
 
 </div>
 
