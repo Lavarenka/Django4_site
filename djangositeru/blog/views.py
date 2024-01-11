@@ -175,11 +175,7 @@ class ShowPost(DetailView):
     context_object_name = 'post'  # перменная в html
 
     def get_context_data(self, **kwargs):
-        res = self.kwargs
-        print(res)
-        print(type(self.kwargs['post_slug']))
         cat = Blog.objects.get(slug=self.kwargs['post_slug'])
-        print(cat.pk)
         comment = Comment.objects.filter(com_id=cat.pk)
         context = super().get_context_data(**kwargs)
         context['title'] = context['post'].title

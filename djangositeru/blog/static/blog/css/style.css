@@ -69,7 +69,11 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* ---------------*/
-
+.wrapper {
+      max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: content-box;
+}
 input, textarea, select {
     border: black solid 1px;
 }
