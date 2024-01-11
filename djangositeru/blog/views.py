@@ -136,6 +136,7 @@ def login(request):
 
 def page_not_found(request, exception):
     """
+
     обработчик 404
     в настройках выключить дебаг
     нужно прописать handler404 = page_not_found в общих урлах
