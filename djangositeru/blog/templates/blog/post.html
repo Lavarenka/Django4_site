@@ -3,6 +3,7 @@
 <h1>{{post.title}}</h1>
 {% if post.photo %}
 <div class="foto_post"><img src="{{post.photo.url}}" alt=""></div>
+<style type="text/css">body{background-image: url({{post.photo.url}})}</style>
 {% endif %}
 {% autoescape off %}
 {{post.content|linebreaks}}
@@ -45,4 +46,6 @@
 
     {% endfor %}
 </div>
+
+
 {% endblock %}

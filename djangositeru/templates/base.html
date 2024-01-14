@@ -1,5 +1,6 @@
 {% load static %}
 {% load blog_tags %}
+{% load sidebar %}
 
 <!doctype html>
 <html lang="ru">
@@ -17,20 +18,23 @@
 </head>
 <body>
 <div class="container-fluid  px-4 wrapper ">
-    <div class="row rounded mt-2 mb-2 container-card overflow-hidden bg-success-subtle">
+    <div class="row rounded mt-2 mb-2 container-card overflow-hidden bg-success-subtle box">
         <!-- подключаем меню-->
         {% include 'blog/includes/navbar.html' %}
     </div>
-    <div class="row mb-2 rounded container-card overflow-hidden bc_color_white_css">
-        <!-- подключаем карусель-->
-        {% include 'blog/includes/carusel.html' %}
+    <div class="row mb-2 box rounded container-card">
+        <div class=" rounded container-card overflow-hidden bc_color_white_css">
+            <!-- подключаем карусель-->
+            {% include 'blog/includes/carusel.html' %}
+        </div>
     </div>
+
     <section class="row main-content ">
         <div class="container d-flex flex-nowrap justify-content-between ">
 
-            <div class="row col-9 d-flex  container_body_css">
+            <div class="row col-9 d-flex  container_body_css box">
                 <!-- хлебные крошки    -->
-                <div class=" container-card rounded bc_color_white_css mb-2 ">
+                <div class=" container-card rounded bc_color_white_css mb-2 box">
                     <div class="d-flex align-self-center ">
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class=" breadcrumb ">
@@ -68,7 +72,8 @@
                 </div>
 
             </div>
-            <div class="row col-3 ">
+            <!--            <div class="box"></div>-->
+            <div class="row col-3 box">
                 <div class=" container-card rounded bc_color_white_css ">
                     <div class="d-flex justify-content-center container-card m-2 p-2">
                         <form>
@@ -107,7 +112,14 @@
                         </ul>
                     </div>
                     <div class="d-flex justify-content-center container-card m-2 p-2">
-                        <div class="min_h">Пустой блок</div>
+
+                        <div class="min_h">
+                            {% get_popular 5 %}
+                            <!--   get_popular  вызываем кастомную функцию из sidebar
+                             5 это количество постов
+                             -->
+
+                        </div>
                     </div>
 
                 </div>

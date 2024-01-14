@@ -70,18 +70,33 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------------*/
 .wrapper {
-      max-width: 1200px;
-  margin: 0 auto;
-  box-sizing: content-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: content-box;
 }
+
 input, textarea, select {
     border: black solid 1px;
 }
 
 body {
     /*background-image: url("../images/img1.akspic.ru-tablica-oblako-atmosfera-ekoregion-poslesvechenie-2250x4872.png");*/
-background: rgb(0,30,36);
-background: linear-gradient(99deg, rgba(0,30,36,1) 0%, rgba(9,121,92,0.9836309523809523) 45%, rgba(0,255,192,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgb(197, 207, 154) 42%, rgb(221, 177, 72));
+    background: -moz-linear-gradient(90deg, rgb(197, 207, 154) 42%, rgb(221, 177, 72));
+    background: linear-gradient(90deg, rgb(197, 207, 154) 42%, rgb(221, 177, 72));
+}
+
+.box {
+    padding: 10px;
+    background-image: url("../images/glass_black.png");
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    border-radius: 15px;
 }
 
 .black_border {
