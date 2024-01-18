@@ -3,7 +3,9 @@
 <h1>{{post.title}}</h1>
 {% if post.photo %}
 <div class="foto_post"><img src="{{post.photo.url}}" alt=""></div>
-<style type="text/css">body{background-image: url({{post.photo.url}})}</style>
+<style type="text/css">body {
+    background-image: url({{post.photo.url}})
+}</style>
 {% endif %}
 {% autoescape off %}
 {{post.content|linebreaks}}
@@ -19,28 +21,46 @@
 </ul>
 {% endif %}
 {% endwith %}
-<form action="" method="post" class="black_border ">
+
+
+<!--<form action="" method="post" class="black_border ">-->
+<!--    {% csrf_token %}-->
+<!--    &lt;!&ndash;  add comment&ndash;&gt;-->
+<!--    {% for f in form %}-->
+<!--    <div class=" input-group mb-3">-->
+<!--        <p><label for="{{ f.id_for_label }}" class="form-label input-group-text">{{ f.label }}</label>{{ f }}</p>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+
+
+<!--    <p><button type="submit">Отправить</button></p>-->
+<!--</form>-->
+<form action="{% url 'create_comment' pk=post.id %}" method="post" class="black_border ">
     {% csrf_token %}
-
     <!--  add comment-->
-    {% for f in form %}
+    {{ form.name }}
+    {{ form.content }}
 
-    <div class=" input-group mb-3">
-        <p><label for="{{ f.id_for_label }}" class="form-label input-group-text">{{ f.label }}</label>{{ f }}</p>
 
-    </div>
-    {% endfor %}
-    <p><button type="submit">Отправить</button></p>
+    <p>
+        <button type="submit">Отправить</button>
+    </p>
 </form>
 
 <div class="card m-1" style="width: 18rem;">
-    <h2>Комменты</h2>
+    <h2>Комменты {{post.comment.count}}</h2>
+<!--    <p>{{post.comment.count}}</p>-->
     {% for com in post.comment.all %}
 
-    <div class="card-body black_border m-1">
-        <h5 class="card-title">{{com.name}}</h5>
+    <div class="card-body black_border m-1 d-flex flex-row justify-content-evenly">
+        <div class="g-2 img_comment ">
+            <img class="card-img-top" src="/media/photos/no_product.jpg" alt="">
+        </div>
+        <div>
+            <h5 class="card-title">{{com.name}}</h5>
+            <p class="card-text">{{com.content}}</p>
+        </div>
 
-        <p class="card-text">{{com.content}}</p>
 
     </div>
 

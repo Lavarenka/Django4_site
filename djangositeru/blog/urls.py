@@ -9,6 +9,8 @@ name='home' имя маршрута
 register_converter(converters.FourDigitYearConverter, "year4") # регистрируем конвертер для archive
 
 urlpatterns = [
+    path('comment/<int:pk>/', views.CreateComment.as_view(), name='create_comment'),
+    # отправка комента , должно быть первым в урлах
     path('', views.BlogHome.as_view(), name='home'), # подключаем наш урл + импортируем,
     path('about/', views.about, name='about'), # подключаем наш урл + импортируем,
     path('addpage/', views.AddPage.as_view(), name='add_page'), # добавление статьи, вызываем класс из views
@@ -18,6 +20,8 @@ urlpatterns = [
     # path('post/<slug:post_slug>/', views.show_post, name='post'),
     path('category/<slug:cat_slug>/', views.BlogCategory.as_view(), name='category'),
     path('tag/<slug:tag_slug>/', views.BlogTag.as_view(), name='tag'),
+    path('search/', views.Search.as_view(), name='search'),
+
 
     # path('cat/<int:cat_id>/', views.categories, name='cat_id'),
     # path('cat/', views.categories),  без пагинации

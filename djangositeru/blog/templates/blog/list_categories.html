@@ -1,7 +1,9 @@
 {% for cat in cats %}
 {% if cat.id == cat_selected %}
-<li class="list-group-item category_selected">{{ cat.name }}</li>
+<li class="dropdown-item category_selected">{{ cat.name }}</li>
 {% else %}
-<li class="list-group-item nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+<li class="dropdown-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
 {% endif %}
 {% endfor %}
+
+<!--<li><a class="dropdown-item" href="#">Действие</a></li>-->

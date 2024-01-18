@@ -1,13 +1,15 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, CreateView
 
 from .forms import AddPostForm, UploadFileForm, AddCommentForm
 from .models import Blog, Category, Comment, TagPost, UploadFiles
+from .utils import DataMixin, Qawsda
 
 menu = [
     {"title": "О сайте", "url_name": "about"},
@@ -17,14 +19,11 @@ menu = [
 ]
 
 
-class BlogHome(ListView):
+class BlogHome(DataMixin, ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    extra_context = {
-        'title': 'Главная страница',
-        'menu': menu,
-        'cat_selected': 0,
-    }
+    title_page = 'Главная станица'
+    cat_selected = 0
 
     def get_queryset(self):
         return Blog.published.all().select_related('cat')
@@ -37,11 +36,11 @@ def about(request):
     UploadFileForm прописан в формах
     UploadFiles прописан в моделях
     """
+
     if request.method == 'POST':
-        # handle_uploaded_file(request.FILES['file_upload'])
+
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            # handle_uploaded_file(form.cleaned_data['file'])
             fp = UploadFiles(file=form.cleaned_data['file'])
             fp.save()
     else:
@@ -53,40 +52,7 @@ def about(request):
     return render(request, 'blog/about.html', data)
 
 
-# def show_post(request, post_slug):
-#     post = get_object_or_404(Blog, slug=post_slug)  # берем из бз пост
-#     print(post.pk)
-#     comment = Comment.objects.filter(com_id=post.pk)  # к посту подрубаем коьменты
-#     print(comment)
-# #
-#     # comments = post.comments.filter(active=True)
-# #     new_comment = None  # Comment posted
-# #     if request.method == 'POST':
-# #         comment_form =AddCommentForm(data=request.POST)
-# #         if comment_form.is_valid():
-# #             # Create Comment object but don't save to database yet
-# #             new_comment = comment_form.save(commit=False)
-# #             # Assign the current post to the comment
-# #             # new_comment.post = post
-# #             # Save the comment to the database
-# #             new_comment.save()
-# #     else:
-# #         comment_form = AddCommentForm()
-# #
-# #
-#     data = {
-#         'title': post.title,
-#         'menu': menu,
-#         'post': post,
-#         'comment': comment,
-#         # 'new_comment': new_comment,
-#         # 'comment_form': comment_form,/
-#         'cat_selected': 1,  # для вывода активной категории, прописана в block_tags
-#     }
-#     return render(request, 'blog/post.html', data)
-
-
-class BlogCategory(ListView):
+class BlogCategory(DataMixin, ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
     allow_empty = False
@@ -98,14 +64,10 @@ class BlogCategory(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cat = context['posts'][0].cat
-        print(cat.pk)
-        context['title'] = 'Категория - ' + cat.name
-        context['menu'] = menu
-        context['cat_selected'] = cat.pk
-        return context
+        return self.get_mixin_context(context, title='Категория - ' + cat.name, cat_selected=cat.pk)
 
 
-class BlogTag(ListView):
+class BlogTag(DataMixin, ListView):
     """выводим теги """
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -114,12 +76,7 @@ class BlogTag(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         tag = TagPost.objects.get(slug=self.kwargs['tag_slug'])
-
-        context['title'] = 'Тег - ' + tag.tag
-        context['menu'] = menu
-        context['cat_selected'] = None
-
-        return context
+        return self.get_mixin_context(context, title='Тег - ' + tag.tag)
 
     def get_queryset(self):
         return Blog.published.filter(tags__slug=self.kwargs['tag_slug']).select_related(
@@ -145,9 +102,12 @@ def page_not_found(request, exception):
     # return redirect('/')
 
 
-class AddPage(View):
+class AddPage(DataMixin, View):
+    title_page = "Добавление статьи"
+
     def get(self, request):
         form = AddPostForm()
+
         data = {
             "title": f"Добавление статьи",
             "menu": menu,
@@ -157,6 +117,8 @@ class AddPage(View):
 
     def post(self, request):
         form = AddPostForm(request.POST, request.FILES)
+        print(request.POST)
+        # print(form)
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -168,9 +130,8 @@ class AddPage(View):
         return render(request, 'blog/addpage.html', context=data)
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView, Qawsda):
     """Вывод отдельного поста"""
-    # model = Blog
     template_name = 'blog/post.html'
     slug_url_kwarg = 'post_slug'  # слаг с урла
     context_object_name = 'post'  # перменная в html
@@ -179,12 +140,41 @@ class ShowPost(DetailView):
         cat = Blog.objects.get(slug=self.kwargs['post_slug'])
         comment = Comment.objects.filter(com_id=cat.pk)
         context = super().get_context_data(**kwargs)
-        context['title'] = context['post'].title
-        context['menu'] = menu
-        context['comment'] = comment
-        context['form'] = AddCommentForm
-        return context
+
+        return self.get_mixin_context(context, title=context['post'].title, comment=comment, form=AddCommentForm)
 
     def get_object(self, queryset=None):
         """возвращает только опубликованные """
         return get_object_or_404(Blog.published, slug=self.kwargs[self.slug_url_kwarg])
+
+
+class CreateComment(CreateView):
+    """Добавление коммента"""
+    model = Comment
+    form_class = AddCommentForm
+
+    def form_valid(self, form):
+        form.instance.com_id = self.kwargs.get('pk')
+        self.object = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """действе после отправки комента , остается на странице"""
+
+        return self.object.com.get_absolute_url()
+
+
+class Search(DataMixin, ListView):
+    """Поиск
+    sqlite не поддерживает регистрозависимоть кириллицуы
+    """
+
+    template_name = 'blog/search.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return Blog.published.filter(title__icontains=self.request.GET.get('s'))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return self.get_mixin_context(context, title='Поиск', s=f"s={self.request.GET.get('s')}&")

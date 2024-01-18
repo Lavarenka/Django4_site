@@ -45,6 +45,10 @@ class AddCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'content']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Введите Имя', 'class': 'form-label input-group-text' }),
+            'content': forms.Textarea(attrs={'placeholder': 'Комментарий', 'class': 'form-label input-group-text'}),
+        }
 
 
 class UploadFileForm(forms.Form):

@@ -1,27 +1,47 @@
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Главная</a>
-        </li>
-        {% for i in menu %}
-        {% if not forloop.last %}
-        <li class="nav-item">{% else %}
-        <li class="nav-item last">{% endif %}
-          <a class="nav-link" href="{% url i.url_name %}">{{i.title}}</a>
-        </li>
-        {% endfor %}
+{% load blog_tags %}
 
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная</a>
+                </li>
+                {% for i in menu %}
+                {% if not forloop.last %}
+                <li class="nav-item">{% else %}
+                <li class="nav-item last">{% endif %}
+                    <a class="nav-link" href="{% url i.url_name %}">{{i.title}}</a>
+                </li>
+                {% endfor %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Категории
+                    </a>
+                    <ul class="dropdown-menu ">
+                        {% if cat_selected == 0 %}
+                        <li class="list-group-item category_selected">Все категории</li>
+                        {% else %}
+                        <li class="list-group-item nav-item"><a class="nav-link" href="{% url 'home' %}">Все
+                            категории</a></li>
+                        {% endif %}
+                        {% show_categories cat_selected %}
+
+                    </ul>
+                </li>
+
+
+            </ul>
+            <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" name="s" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-  </div>
 </nav>

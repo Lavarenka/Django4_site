@@ -84,7 +84,7 @@ class CommentAdmin(admin.ModelAdmin):
     """
     настройка даминки категории
     """
-    list_display = ('name', 'content')
+    list_display = ('name', 'content', 'com')
     list_display_links = ('name', 'content')
 
 # admin.site.register(Comment)  # регистрация приложения в админке, регистрация блога

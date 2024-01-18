@@ -23,7 +23,7 @@
             -->
             <!--            <p class="card-text">{{ i.content|linebreaks|truncatewords:20 }}</p>-->
             <!--            {% endautoescape %}-->
-                        {% with i.tags.all as tags %}
+            {% with i.tags.all as tags %}
             {% if tags %}
             <p class="card-text">Жанр:
 
@@ -37,14 +37,14 @@
             <p class="card-text">Категория: {{ i.cat.name }}</p>
 
 
-
             <p class="card-text">Дата: {{ i.time_update|date:"d-m-y H:i:s" }}</p>
             <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 </div>
 
-
+{% empty %}
+<p>Ничего не найдено</p>
 {% endfor %}
 
 
@@ -57,7 +57,7 @@
 
             {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая">
+                <a class="page-link" href="?{{ s }}page={{ page_obj.previous_page_number }}" aria-label="Предыдущая">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -68,12 +68,12 @@
                 <span class="page-link">{{ p }}</span>
             </li>
             {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-            <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+            <li class="page-item"><a class="page-link" href="?{{ s }}page={{ p }}">{{ p }}</a></li>
             {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая">
+                <a class="page-link" href="?{{ s }}page={{ page_obj.next_page_number }}" aria-label="Следующая">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

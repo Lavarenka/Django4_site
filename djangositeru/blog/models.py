@@ -104,12 +104,12 @@ class Comment(models.Model):
     name = models.CharField(max_length=100, verbose_name='Имя пользователя')
     content = models.TextField(verbose_name='Текст')
     com = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comment')
-
-    def __str__(self):
-        return self.name
-    def get_absolute_url(self):
-        """вывод текущей записи по слагу """
-        return reverse('comment', kwargs={'comment_slug': self.name})
+    # Добавить дату и опубликованные
+    # def __str__(self):
+    #     return self.name
+    # def get_absolute_url(self):
+    #     """вывод текущей записи по слагу """
+    #     return reverse('comment', kwargs={'comment_slug': self.name})
 
     class Meta:
         verbose_name = 'Комментарий'  # название Категории в админке
