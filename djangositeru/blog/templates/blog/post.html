@@ -47,24 +47,21 @@
     </p>
 </form>
 
-<div class="card m-1" style="width: 18rem;">
-    <h2>Комменты {{post.comment.count}}</h2>
-<!--    <p>{{post.comment.count}}</p>-->
-    {% for com in post.comment.all %}
+<div class="container ">
 
-    <div class="card-body black_border m-1 d-flex flex-row justify-content-evenly">
-        <div class="g-2 img_comment ">
+    <h2>Комменты {{post.comment.count}}</h2>
+    {% for com in post.comment.all %}
+    <div class="row card-body black_border m-1 d-flex flex-row ">
+        <div class="col-6 g-2 img_comment ">
             <img class="card-img-top" src="/media/photos/no_product.jpg" alt="">
         </div>
-        <div>
+        <div class="col-6">
             <h5 class="card-title">{{com.name}}</h5>
             <p class="card-text">{{com.content}}</p>
         </div>
-
-
     </div>
-
     {% endfor %}
+    
 </div>
 
 

@@ -30,6 +30,7 @@ https://proproprogs.ru/django4/django4-dinamicheskie-url-polzovatelskie-konverte
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),  # подключаем маршруты приложения blog которые описаны в blog\urls.py
+    path('users/', include('users.urls', namespace="users")),  # подключаем маршруты приложения blog которые описаны в blog\urls.py
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 
