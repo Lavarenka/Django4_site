@@ -3,6 +3,7 @@ from django.db.models import Count
 
 import blog.views as views
 from blog.models import Category, TagPost
+from blog.utils import menu
 
 """
 категории
@@ -11,7 +12,9 @@ register = template.Library()
 
 
 # регистрация тега
-
+@register.simple_tag
+def get_menu():
+    return menu
 
 @register.inclusion_tag('blog/list_categories.html')
 def show_categories(cat_selected=0):  # cat_selected=0 для категорий , выводит активную категорию

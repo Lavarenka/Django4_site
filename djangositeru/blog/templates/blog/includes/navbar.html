@@ -12,13 +12,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Главная</a>
                 </li>
+                <!--выводим меню-->
+
+                {% get_menu as menu %}
+
                 {% for i in menu %}
-                {% if not forloop.last %}
-                <li class="nav-item">{% else %}
-                <li class="nav-item last">{% endif %}
+
+                <li class="nav-item">
                     <a class="nav-link" href="{% url i.url_name %}">{{i.title}}</a>
                 </li>
-                {% endfor %}
+                {% endfor menu %}
+                <li class="nav-item last">
+                    <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">

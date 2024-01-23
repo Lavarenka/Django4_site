@@ -11,13 +11,6 @@ from .forms import AddPostForm, UploadFileForm, AddCommentForm
 from .models import Blog, Category, Comment, TagPost, UploadFiles
 from .utils import DataMixin, Qawsda
 
-menu = [
-    {"title": "О сайте", "url_name": "about"},
-    {"title": "Добавить статью", "url_name": "add_page"},
-    {"title": "Обратная связь", "url_name": "contact"},
-    {"title": "Войти", "url_name": "login"},
-]
-
 
 class BlogHome(DataMixin, ListView):
     template_name = 'blog/index.html'
